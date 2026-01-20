@@ -176,7 +176,7 @@
         padding: 15px 20px;
         color: var(--white);
         text-decoration: none;
-        font-size: 1.35rem;
+        font-size: 1.1rem;
         transition: all 0.3s ease;
         text-transform: none;
         letter-spacing: 0.5px;
@@ -421,10 +421,10 @@
         backdrop-filter: blur(10px);
         border: 1px solid rgba(96, 165, 250, 0.3);
         border-radius: 24px;
-        padding: 25px;
+        padding: 35px;
         position: relative;
         overflow: hidden;
-        margin-bottom: 20px;
+        margin-bottom: 25px;
         transition: all 0.3s ease;
     }
     
@@ -453,9 +453,9 @@
     
     .show-info h3 {
         font-family: 'Playfair Display', serif;
-        font-size: 3rem;
+        font-size: 2.5rem;
         color: var(--white);
-        margin-bottom: 8px;
+        margin-bottom: 10px;
         font-weight: 700;
         position: relative;
         z-index: 1;
@@ -464,7 +464,7 @@
     .show-meta {
         font-size: 1.21rem;
         color: var(--light-blue);
-        margin-bottom: 8px;
+        margin-bottom: 10px;
         font-style: italic;
         position: relative;
         z-index: 1;
@@ -477,6 +477,7 @@
         max-width: 800px;
         position: relative;
         z-index: 1;
+        text-align: justify;
     }
     
     /* CTA Button */
@@ -502,6 +503,21 @@
         transition: all 0.3s ease;
         margin-top: 15px;
         box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+        text-align: center;
+    }
+    
+    .tickets-text {
+        display: block;
+        width: fit-content;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 15px;
+        color: #d4af37;
+        font-family: 'Playfair Display', serif;
+        font-size: 1.1rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 2px;
         text-align: center;
     }
     
@@ -942,7 +958,7 @@
                         <li><a href="https://docs.google.com/document/d/1xdwRCB98v7ldeEvVb2Pe_8U9g8B_4imVLjVd7DxeRuM/edit?usp=sharing" target="_blank">Rehearsal Schedule</a></li>
                         <li><a href="#" onclick="checkVolunteerPassword(event); return false;">Volunteer Sign Up</a></li>
                         <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSdfCqmjAEKVvSvsJ0TBiL2-FjWMnlwDEkQD_gATokACwnqhyA/viewform" target="_blank">Shirt Sizing Form</a></li>
-                        <li><a href="https://docs.google.com/spreadsheets/d/181oJGGjChgcDYVhd9TptpVTFTW6XOR7xkJcpQIFw7L4/edit?usp=drivesdk" target="_blank">Fitting Day Sign Up</a></li>
+                        <li><a href="#" onclick="checkFittingPassword(event); return false;">Fitting Day Sign Up</a></li>
                         <li><a href="https://drive.google.com/file/d/1BJr3YMaK-JHOzLAaowSoSle22cqWgU5G/view?usp=drivesdk" target="_blank">Script</a></li>
                         <li><a href="https://drive.google.com/drive/folders/1vv-lr8Xxv9hRrHPb9z4xLZ7KdrXb_qbr" target="_blank">Songs</a></li>
                         <li><a href="https://docs.google.com/document/d/1brqNT-LlLguoMZMjbNC0gVvBnX9cuZeae5NIn2D5jj0/edit?usp=sharing" target="_blank">Cast List</a></li>
@@ -976,7 +992,7 @@
                 <p class="show-meta"><a href="https://docs.google.com/document/d/1brqNT-LlLguoMZMjbNC0gVvBnX9cuZeae5NIn2D5jj0/edit?usp=sharing" target="_blank" style="color: var(--bright-blue); text-decoration: underline;">View Cast List</a></p>
                 <p class="show-meta" style="font-style: normal; font-weight: 600; margin-top: 15px;">Rachel Bergeron, Director</p>
                 <p class="show-description">Follow young Oliver Twist's extraordinary journey from the workhouse to the streets of Victorian London in this beloved musical adaptation of Charles Dickens' classic tale. Filled with unforgettable songs like "Consider Yourself" and "As Long As He Needs Me," our production brings heart, humor, and hope to the stage.</p>
-                <div class="cta-button" style="background: #666; cursor: default; pointer-events: none;">Tickets Coming Soon</div>
+                <span class="tickets-text">Tickets Coming Soon</span>
             </div>
         </div>
         
@@ -1035,6 +1051,21 @@
         const password = prompt('Please enter the password to access Volunteer Sign Up:');
         if (password && password.toLowerCase() === 'breakaleg') {
             window.open('https://docs.google.com/spreadsheets/u/0/d/18KqMLvN7M7-mnrNDzW-kf8OX90GeIR8dQjH7nt5idKI/htmlview', '_blank');
+        } else if (password !== null && password !== '') {
+            alert('Incorrect password. Please try again.');
+        }
+        return false;
+    }
+    
+    // Password protection for fitting day sign up
+    function checkFittingPassword(event) {
+        if (event) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+        const password = prompt('Please enter the password to access Fitting Day Sign Up:');
+        if (password && password.toLowerCase() === 'breakaleg') {
+            window.open('https://docs.google.com/spreadsheets/d/181oJGGjChgcDYVhd9TptpVTFTW6XOR7xkJcpQIFw7L4/edit?usp=drivesdk', '_blank');
         } else if (password !== null && password !== '') {
             alert('Incorrect password. Please try again.');
         }
