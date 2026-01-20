@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laurel School Drama Program</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --royal-blue: #1e3a8a;
+            --deep-blue: #1e40af;
+            --bright-blue: #3b82f6;
+            --light-blue: #60a5fa;
+            --white: #ffffff;
+            --off-white: #f8fafc;
+            --charcoal: #0f172a;
+            --dark-navy: #0c1e3d;
+        }
+
+```
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    body {
+        font-family: 'Crimson Text', serif;
+        background: var(--charcoal);
+        color: var(--white);
+        overflow-x: hidden;
+    }
+    
+    /* Curtain effect background */
+    .stage-curtain {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: 
+            repeating-linear-gradient(
+                90deg,
+                var(--dark-navy) 0px,
+                var(--royal-blue) 40px,
+                var(--dark-navy) 80px
+            );
+        opacity: 0.15;
+        pointer-events: none;
+        z-index: 0;
+    }
+    
+    /* Spotlight effect */
+    .spotlight {
+        position: fixed;
+        top: -50%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 800px;
+        height: 800px;
+        background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
+        pointer-events: none;
+        z-index: 1;
+        animation: spotlight-sway 8s ease-in-out infinite;
+    }
+    
+    @keyframes spotlight-sway {
+        0%, 100% { transform: translateX(-50%) translateY(0); }
+        50% { transform: translateX(-45%) translateY(20px); }
+    }
+    
+    .container {
+        position: relative;
+        z-index: 2;
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 40px;
+    }
+    
+    /* Navigation Menu */
+    nav {
+        background: linear-gradient(135deg, var(--dark-navy), var(--royal-blue));
+        border: 2px solid var(--bright-blue);
+        padding: 0;
+        margin-bottom: 40px;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        animation: slide-down 0.8s ease-out;
+    }
+    
+    @keyframes slide-down {
+        from {
+            opacity: 0;
+            transform: translateY(-100%);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    .nav-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 40px;
+        flex-wrap: wrap;
+    }
+    
+    .nav-links {
+        display: flex;
+        gap: 0;
+        list-style: none;
+    }
+    
+    .nav-links li {
+        position: relative;
+    }
+    
+    .nav-links > li > a,
+    .nav-links > li > button {
+        display: block;
+        padding: 25px 25px;
+        color: var(--white);
+        text-decoration: none;
+        font-size: 1.05rem;
+        font-weight: 600;
+        letter-spacing: 1px;
+        transition: all 0.3s ease;
+        position: relative;
+        text-transform: uppercase;
+        font-size: 0.95rem;
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-family: 'Crimson Text', serif;
+    }
+    
+    .nav-links > li > a::before,
+    .nav-links > li > button::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 3px;
+        background: var(--bright-blue);
+        transition: width 0.3s ease;
+    }
+    
+    .nav-links > li > a:hover,
+    .nav-links > li > button:hover {
+        color: var(--bright-blue);
+        background: rgba(59, 130, 246, 0.1);
+    }
+    
+    .nav-links > li > a:hover::before,
+    .nav-links > li > button:hover::before {
+        width: 80%;
+    }
+    
+    /* Dropdown styles */
+    .dropdown {
+        position: relative;
+    }
+    
+    .dropdown-toggle::after {
+        content: ' ▾';
+        font-size: 0.8em;
+        margin-left: 5px;
+    }
+    
+    .dropdown-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: linear-gradient(135deg, var(--dark-navy), var(--royal-blue));
+        border: 2px solid var(--bright-blue);
+        border-top: none;
+        min-width: 220px;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+        z-index: 1000;
+    }
+    
+    .dropdown:hover .dropdown-menu,
+    .dropdown.active .dropdown-menu {
+        display: block;
+    }
+    
+    .dropdown-menu li {
+        border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+    }
+    
+    .dropdown-menu li:last-child {
+        border-bottom: none;
+    }
+    
+    .dropdown-menu a {
+        display: block;
+        padding: 15px 20px;
+        color: var(--white);
+        text-decoration: none;
+        font-size: 0.95rem;
+        transition: all 0.3s ease;
+        text-transform: none;
+        letter-spacing: 0.5px;
+    }
+    
+    .dropdown-menu a:hover {
+        background: rgba(59, 130, 246, 0.15);
+        color: var(--bright-blue);
+        padding-left: 25px;
+    }
+    
+    .mobile-menu-toggle {
+        display: none;
+        background: none;
+        border: 2px solid var(--bright-blue);
+        color: var(--bright-blue);
+        font-size: 1.5rem;
+        padding: 10px 20px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+    .mobile-menu-toggle:hover {
+        background: var(--bright-blue);
+        color: var(--white);
+    }
+    
+    /* Header */
+    header {
+        padding: 60px 0 40px;
+        text-align: center;
+        border-bottom: 2px solid var(--bright-blue);
+        margin-bottom: 80px;
+        animation: curtain-rise 1.2s ease-out;
+    }
+    
+    @keyframes curtain-rise {
+        from { 
+            opacity: 0;
+            transform: translateY(-30px);
+        }
+        to { 
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    .marquee {
+        font-family: 'Playfair Display', serif;
+        font-size: 5rem;
+        font-weight: 900;
+        color: var(--white);
+        text-transform: uppercase;
+        letter-spacing: 8px;
+        margin-bottom: 20px;
+        text-shadow: 
+            3px 3px 0 var(--royal-blue),
+            6px 6px 20px rgba(59, 130, 246, 0.4);
+        animation: glow-pulse 3s ease-in-out infinite;
+    }
+    
+    @keyframes glow-pulse {
+        0%, 100% { 
+            text-shadow: 
+                3px 3px 0 var(--royal-blue),
+                6px 6px 20px rgba(59, 130, 246, 0.4);
+        }
+        50% { 
+            text-shadow: 
+                3px 3px 0 var(--royal-blue),
+                6px 6px 30px rgba(59, 130, 246, 0.6),
+                0 0 40px rgba(59, 130, 246, 0.3);
+        }
+    }
+    
+    .tagline {
+        font-size: 1.5rem;
+        font-style: italic;
+        color: var(--white);
+        opacity: 0.9;
+        letter-spacing: 2px;
+    }
+    
+    /* Hero Section */
+    .hero {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 80px;
+        margin-bottom: 100px;
+        align-items: center;
+        animation: fade-in 1s ease-out 0.3s backwards;
+    }
+    
+    @keyframes fade-in {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .hero-text h2 {
+        font-family: 'Playfair Display', serif;
+        font-size: 3rem;
+        font-weight: 700;
+        color: var(--light-blue);
+        margin-bottom: 30px;
+        line-height: 1.2;
+    }
+    
+    .hero-text p {
+        font-size: 1.3rem;
+        line-height: 1.8;
+        margin-bottom: 25px;
+        color: var(--white);
+    }
+    
+    .hero-image {
+        position: relative;
+        height: 500px;
+        background: linear-gradient(135deg, var(--royal-blue), var(--deep-blue));
+        border: 3px solid var(--bright-blue);
+        box-shadow: 
+            0 20px 60px rgba(0, 0, 0, 0.6),
+            inset 0 0 0 8px var(--charcoal),
+            inset 0 0 0 10px var(--bright-blue);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+    
+    .hero-image::before {
+        content: '★';
+        font-size: 15rem;
+        color: var(--bright-blue);
+        opacity: 0.1;
+        position: absolute;
+        animation: rotate-star 20s linear infinite;
+    }
+    
+    @keyframes rotate-star {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+    
+    .hero-image .placeholder-text {
+        font-family: 'Playfair Display', serif;
+        font-size: 4rem;
+        color: var(--white);
+        text-align: center;
+        z-index: 1;
+        opacity: 0.3;
+    }
+    
+    /* Programs Section */
+    .programs {
+        margin-bottom: 100px;
+        animation: fade-in 1s ease-out 0.6s backwards;
+    }
+    
+    .section-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 3.5rem;
+        font-weight: 900;
+        text-align: center;
+        color: var(--white);
+        margin-bottom: 60px;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        position: relative;
+        padding-bottom: 20px;
+    }
+    
+    .section-title::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 200px;
+        height: 3px;
+        background: linear-gradient(90deg, transparent, var(--bright-blue), transparent);
+    }
+    
+    .program-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 40px;
+    }
+    
+    .program-card {
+        background: linear-gradient(135deg, var(--dark-navy), var(--royal-blue));
+        padding: 50px 40px;
+        border: 2px solid var(--bright-blue);
+        position: relative;
+        transition: all 0.4s ease;
+        cursor: pointer;
+    }
+    
+    .program-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), transparent);
+        opacity: 0;
+        transition: opacity 0.4s ease;
+    }
+    
+    .program-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 
+            0 30px 60px rgba(0, 0, 0, 0.8),
+            0 0 40px rgba(59, 130, 246, 0.3);
+    }
+    
+    .program-card:hover::before {
+        opacity: 1;
+    }
+    
+    .program-card h3 {
+        font-family: 'Playfair Display', serif;
+        font-size: 2rem;
+        color: var(--white);
+        margin-bottom: 20px;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .program-card p {
+        font-size: 1.1rem;
+        line-height: 1.7;
+        color: var(--white);
+        opacity: 0.9;
+        position: relative;
+        z-index: 1;
+    }
+    
+    /* Upcoming Shows */
+    .shows {
+        margin-bottom: 100px;
+        animation: fade-in 1s ease-out 0.9s backwards;
+    }
+    
+    .show-highlight {
+        background: linear-gradient(135deg, var(--royal-blue), var(--deep-blue));
+        border: 3px solid var(--bright-blue);
+        padding: 60px;
+        position: relative;
+        overflow: hidden;
+        margin-bottom: 40px;
+    }
+    
+    .show-highlight::before {
+        content: '✦';
+        position: absolute;
+        font-size: 20rem;
+        color: var(--bright-blue);
+        opacity: 0.05;
+        top: -50px;
+        right: -50px;
+        transform: rotate(-15deg);
+    }
+    
+    .show-info {
+        position: relative;
+        z-index: 1;
+    }
+    
+    .show-info h3 {
+        font-family: 'Playfair Display', serif;
+        font-size: 3.5rem;
+        color: var(--white);
+        margin-bottom: 15px;
+        font-weight: 900;
+    }
+    
+    .show-meta {
+        font-size: 1.3rem;
+        color: var(--white);
+        margin-bottom: 25px;
+        font-style: italic;
+    }
+    
+    .show-description {
+        font-size: 1.2rem;
+        line-height: 1.8;
+        color: var(--white);
+        max-width: 800px;
+    }
+    
+    /* CTA Button */
+    .cta-button {
+        display: inline-block;
+        padding: 20px 50px;
+        background: var(--white);
+        color: var(--royal-blue);
+        font-family: 'Playfair Display', serif;
+        font-size: 1.3rem;
+        font-weight: 700;
+        text-decoration: none;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        border: none;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        margin-top: 30px;
+    }
+    
+    .cta-button::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.3), transparent);
+        transition: left 0.5s ease;
+    }
+    
+    .cta-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 30px rgba(59, 130, 246, 0.5);
+        background: var(--bright-blue);
+        color: var(--white);
+    }
+    
+    .cta-button:hover::before {
+        left: 100%;
+    }
+    
+    /* Video Gallery */
+    /* NOTE: Create an "images" folder in the same directory as this HTML file.
+       Place IMG_9329.jpeg (Frozen photo) and IMG_1930.jpeg (Lion King photo) 
+       inside the images folder for the photos to display */
+    .video-gallery {
+        margin-bottom: 100px;
+        animation: fade-in 1s ease-out 1.5s backwards;
+    }
+    
+    .video-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 40px;
+    }
+    
+    .video-card {
+        background: linear-gradient(135deg, var(--dark-navy), var(--royal-blue));
+        border: 2px solid var(--bright-blue);
+        overflow: hidden;
+        position: relative;
+        transition: all 0.4s ease;
+        cursor: pointer;
+    }
+    
+    .video-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 
+            0 30px 60px rgba(0, 0, 0, 0.8),
+            0 0 40px rgba(59, 130, 246, 0.3);
+    }
+    
+    .video-thumbnail {
+        width: 100%;
+        height: 250px;
+        background: linear-gradient(135deg, var(--royal-blue), var(--deep-blue));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .video-thumbnail::before {
+        content: '▶';
+        position: absolute;
+        font-size: 4rem;
+        color: var(--white);
+        opacity: 0.6;
+        transition: all 0.3s ease;
+    }
+    
+    .video-card:hover .video-thumbnail::before {
+        opacity: 1;
+        transform: scale(1.2);
+    }
+    
+    .video-thumbnail .year-badge {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: var(--white);
+        color: var(--royal-blue);
+        padding: 8px 20px;
+        font-family: 'Playfair Display', serif;
+        font-weight: 700;
+        font-size: 1rem;
+        letter-spacing: 1px;
+    }
+    
+    .video-info {
+        padding: 30px;
+    }
+    
+    .video-info h3 {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.8rem;
+        color: var(--white);
+        margin-bottom: 10px;
+        font-weight: 700;
+    }
+    
+    .video-info p {
+        font-size: 1.1rem;
+        color: var(--white);
+        opacity: 0.85;
+        line-height: 1.6;
+    }
+    
+    /* Join Section */
+    .join-section {
+        text-align: center;
+        padding: 80px 40px;
+        background: linear-gradient(135deg, var(--dark-navy), var(--royal-blue));
+        border: 3px solid var(--bright-blue);
+        margin-bottom: 100px;
+        animation: fade-in 1s ease-out 1.2s backwards;
+    }
+    
+    .join-section h2 {
+        font-family: 'Playfair Display', serif;
+        font-size: 3.5rem;
+        color: var(--white);
+        margin-bottom: 30px;
+        font-weight: 900;
+    }
+    
+    .join-section p {
+        font-size: 1.4rem;
+        color: var(--white);
+        max-width: 700px;
+        margin: 0 auto 40px;
+        line-height: 1.8;
+    }
+    
+    /* Footer */
+    footer {
+        text-align: center;
+        padding: 60px 0 40px;
+        border-top: 2px solid var(--bright-blue);
+        margin-top: 80px;
+    }
+    
+    footer p {
+        font-size: 1.1rem;
+        color: var(--white);
+        opacity: 0.7;
+        margin-bottom: 15px;
+    }
+    
+    .contact-info {
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+        margin-top: 30px;
+        font-size: 1.1rem;
+    }
+    
+    .contact-info a {
+        color: var(--bright-blue);
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+    
+    .contact-info a:hover {
+        text-shadow: 0 0 10px var(--bright-blue);
+    }
+    
+    
+    /* Responsive */
+    @media (max-width: 968px) {
+        .mobile-menu-toggle {
+            display: block;
+        }
+        
+        .nav-container {
+            padding: 20px;
+            justify-content: space-between;
+        }
+        
+        .nav-links {
+            display: none;
+            width: 100%;
+            flex-direction: column;
+            background: var(--dark-navy);
+            border-top: 2px solid var(--bright-blue);
+        }
+        
+        .nav-links.active {
+            display: flex;
+        }
+        
+        .nav-links > li {
+            width: 100%;
+            border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+        }
+        
+        .nav-links > li > a,
+        .nav-links > li > button {
+            padding: 20px;
+            width: 100%;
+            text-align: left;
+        }
+        
+        .nav-links > li > a::before,
+        .nav-links > li > button::before {
+            display: none;
+        }
+        
+        .dropdown-menu {
+            position: static;
+            border: none;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            box-shadow: none;
+            background: rgba(0, 0, 0, 0.3);
+        }
+        
+        .dropdown-menu a {
+            padding-left: 40px;
+        }
+        
+        .dropdown-menu a:hover {
+            padding-left: 45px;
+        }
+        
+        .marquee {
+            font-size: 3rem;
+            letter-spacing: 4px;
+        }
+        
+        .hero {
+            grid-template-columns: 1fr;
+            gap: 40px;
+        }
+        
+        .hero-image {
+            height: 350px;
+        }
+        
+        .program-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .video-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+        }
+        
+        .show-info h3 {
+            font-size: 2.5rem;
+        }
+        
+        .container {
+            padding: 0 20px;
+        }
+    }
+</style>
+```
+
+</head>
+<body>
+    <div class="stage-curtain"></div>
+    <div class="spotlight"></div>
+
+```
+<div class="container">
+    <nav>
+        <div class="nav-container">
+            <button class="mobile-menu-toggle" onclick="toggleMenu()">☰ Current Shows</button>
+            <ul class="nav-links" id="navLinks">
+                <li class="dropdown">
+                    <button class="dropdown-toggle">Oliver Jr.</button>
+                    <ul class="dropdown-menu" id="oliver-menu">
+                        <li><a href="https://docs.google.com/document/d/1xdwRCB98v7ldeEvVb2Pe_8U9g8B_4imVLjVd7DxeRuM/edit?usp=sharing" target="_blank">Rehearsal Schedule</a></li>
+                        <li><a href="#" onclick="checkVolunteerPassword(event); return false;">Volunteer Sign Up</a></li>
+                        <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSdfCqmjAEKVvSvsJ0TBiL2-FjWMnlwDEkQD_gATokACwnqhyA/viewform" target="_blank">Shirt Sizing Form</a></li>
+                        <li><a href="https://docs.google.com/spreadsheets/d/181oJGGjChgcDYVhd9TptpVTFTW6XOR7xkJcpQIFw7L4/edit?usp=drivesdk" target="_blank">Fitting Day Sign Up</a></li>
+                        <li><a href="https://drive.google.com/file/d/1BJr3YMaK-JHOzLAaowSoSle22cqWgU5G/view?usp=drivesdk" target="_blank">Script</a></li>
+                        <li><a href="https://drive.google.com/drive/folders/1vv-lr8Xxv9hRrHPb9z4xLZ7KdrXb_qbr" target="_blank">Songs</a></li>
+                        <li><a href="https://docs.google.com/document/d/1brqNT-LlLguoMZMjbNC0gVvBnX9cuZeae5NIn2D5jj0/edit?usp=sharing" target="_blank">Cast List</a></li>
+                        <li><a href="https://docs.google.com/document/d/102bmIm6_8Hpbcbui7VSJCgV7GcoTJD-TI7gV2HKkPdM/edit?usp=sharing" target="_blank">Ensemble Groups</a></li>
+                        <li><a href="https://docs.google.com/presentation/d/1wCeHdKYoaYIpu5eHy3k9sc9-glksXU3XbeZhsG96GF8/edit?usp=sharing" target="_blank">Parent Meeting</a></li>
+                        <li><a href="https://docs.google.com/document/u/0/d/1KbyX90trBWovH0Mf0Al0zMHMltQnuHXP/mobilebasic" target="_blank">Oliver Flyer</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <button class="dropdown-toggle">Lion King Kids 2026</button>
+                    <ul class="dropdown-menu" id="lionking-menu">
+                        <li><a href="https://drive.google.com/file/d/1qsOyjkp8_biI757m3vsX2MUGXDYiktwh/view?usp=drivesdk" target="_blank">Script</a></li>
+                        <li><a href="https://drive.google.com/drive/folders/1UaKRk0KsO6_YhZfj1Pjs6iIEmwY4LuVi" target="_blank">Songs</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    
+    <header>
+        <h1 class="marquee">Laurel School Drama</h1>
+        <p class="tagline">Where Stories Come Alive</p>
+    </header>
+    
+    <section class="shows">
+        <h2 class="section-title">Current Productions</h2>
+        <div class="show-highlight">
+            <div class="show-info">
+                <h3>Oliver Jr.</h3>
+                <p class="show-meta">April 23-25, 2026 | Hillview Middle School PAC</p>
+                <p class="show-meta">Thursday, April 23 at 6:00 PM | Friday, April 24 at 7:00 PM<br>Saturday, April 25 at 3:00 PM and 7:00 PM</p>
+                <p class="show-meta"><a href="https://docs.google.com/document/d/1brqNT-LlLguoMZMjbNC0gVvBnX9cuZeae5NIn2D5jj0/edit?usp=sharing" target="_blank" style="color: var(--bright-blue); text-decoration: underline;">View Cast List</a></p>
+                <p class="show-meta" style="font-style: normal; font-weight: 600; margin-top: 15px;">Rachel Bergeron, Director</p>
+                <p class="show-description">Follow young Oliver Twist's extraordinary journey from the workhouse to the streets of Victorian London in this beloved musical adaptation of Charles Dickens' classic tale. Filled with unforgettable songs like "Consider Yourself" and "As Long As He Needs Me," our production brings heart, humor, and hope to the stage.</p>
+                <div class="cta-button" style="background: #666; cursor: default; pointer-events: none;">Tickets Coming Soon</div>
+            </div>
+        </div>
+        
+        <div class="show-highlight" style="margin-top: 40px;">
+            <div class="show-info">
+                <h3>The Lion King Kids 2026</h3>
+                <p class="show-meta">January 31, 2026 | Hillview PAC</p>
+                <p class="show-meta">2:00 PM and 4:00 PM</p>
+                <p class="show-meta"><a href="#lionking-cast" target="_blank" style="color: var(--bright-blue); text-decoration: underline;">View Cast List</a></p>
+                <p class="show-meta" style="font-style: normal; font-weight: 600; margin-top: 15px;">Rachel Bergeron, Director</p>
+                <p class="show-description">Experience the majesty of the African savanna as Laurel School's third grade performs Lion King Kids in this spectacular production. Third grade family and friends are invited to attend.</p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="video-gallery">
+        <h2 class="section-title">Past Productions</h2>
+        <div class="video-grid">
+            <div class="video-card" onclick="window.open('https://sites.google.com/mpcsd.org/frozenlaurelelementary?usp=sharing', '_blank')">
+                <div class="video-thumbnail" style="background: url('images/IMG_9329.jpeg') center/cover no-repeat;">
+                    <span class="year-badge">2025</span>
+                </div>
+                <div class="video-info">
+                    <h3>Frozen Jr.</h3>
+                </div>
+            </div>
+            
+            <div class="video-card" onclick="window.open('https://sites.google.com/mpcsd.org/mpcsd-lion-king/home', '_blank')">
+                <div class="video-thumbnail" style="background: url('images/IMG_1930.jpeg') center/cover no-repeat;">
+                    <span class="year-badge">2025</span>
+                </div>
+                <div class="video-info">
+                    <h3>The Lion King Kids</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <p>© 2026 Laurel School Drama Program. All rights reserved.</p>
+        <div class="contact-info">
+            <a href="/cdn-cgi/l/email-protection#224650434f43624e435750474e51414a4d4d4e0c474657"><span class="__cf_email__" data-cfemail="137761727e72537f726661767f60707b7c7c7f3d767766">[email&#160;protected]</span></a>
+            <span>|</span>
+            <a href="tel:555-123-4567">(555) 123-4567</a>
+        </div>
+    </footer>
+</div>
+
+<script>
+    function toggleMenu() {
+        const navLinks = document.getElementById('navLinks');
+        navLinks.classList.toggle('active');
+    }
+    
+    // Password protection for volunteer sign up
+    function checkVolunteerPassword(event) {
+        if (event) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+        const password = prompt('Please enter the password to access Volunteer Sign Up:');
+        if (password && password.toLowerCase() === 'breakaleg') {
+            window.open('https://docs.google.com/spreadsheets/u/0/d/18KqMLvN7M7-mnrNDzW-kf8OX90GeIR8dQjH7nt5idKI/htmlview', '_blank');
+        } else if (password !== null && password !== '') {
+            alert('Incorrect password. Please try again.');
+        }
+        return false;
+    }
+    
+    // Add click handlers for dropdown toggles
+    document.querySelectorAll('.dropdown-toggle').forEach(button => {
+        button.addEventListener('click', function(e) {
+            if (window.innerWidth <= 968) {
+                // Mobile behavior
+                e.preventDefault();
+                e.stopPropagation();
+                const dropdown = this.parentElement;
+                
+                // Close other dropdowns
+                document.querySelectorAll('.dropdown').forEach(d => {
+                    if (d !== dropdown) {
+                        d.classList.remove('active');
+                    }
+                });
+                
+                // Toggle this dropdown
+                dropdown.classList.toggle('active');
+            }
+        });
+    });
+    
+    // Close mobile menu when clicking a dropdown link
+    document.querySelectorAll('.dropdown-menu a').forEach(link => {
+        link.addEventListener('click', () => {
+            const navLinks = document.getElementById('navLinks');
+            if (window.innerWidth <= 968) {
+                navLinks.classList.remove('active');
+                document.querySelectorAll('.dropdown').forEach(d => {
+                    d.classList.remove('active');
+                });
+            }
+        });
+    });
+    
+    // Close mobile menu when resizing to desktop
+    window.addEventListener('resize', () => {
+        const navLinks = document.getElementById('navLinks');
+        if (window.innerWidth > 968) {
+            navLinks.classList.remove('active');
+            document.querySelectorAll('.dropdown').forEach(d => {
+                d.classList.remove('active');
+            });
+        }
+    });
+</script>
+```
+
+</body>
+</html>
