@@ -559,7 +559,7 @@
     
     .video-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
         gap: 15px;
     }
     
@@ -584,7 +584,7 @@
     
     .video-thumbnail {
         width: 100%;
-        height: 125px;
+        height: 75px;
         background: linear-gradient(135deg, var(--royal-blue), var(--deep-blue));
         display: flex;
         align-items: center;
@@ -596,7 +596,7 @@
     .video-thumbnail::before {
         content: '▶';
         position: absolute;
-        font-size: 2rem;
+        font-size: 1.2rem;
         color: var(--white);
         opacity: 0.6;
         transition: all 0.3s ease;
@@ -609,24 +609,24 @@
     
     .video-thumbnail .year-badge {
         position: absolute;
-        top: 8px;
-        right: 8px;
+        top: 5px;
+        right: 5px;
         background: var(--white);
         color: var(--royal-blue);
-        padding: 4px 12px;
+        padding: 2px 8px;
         font-family: 'Playfair Display', serif;
         font-weight: 700;
-        font-size: 0.85rem;
+        font-size: 0.7rem;
         letter-spacing: 1px;
     }
     
     .video-info {
-        padding: 8px;
+        padding: 5px;
     }
     
     .video-info h3 {
         font-family: 'Playfair Display', serif;
-        font-size: 1.3rem;
+        font-size: 1rem;
         color: var(--white);
         margin-bottom: 10px;
         font-weight: 700;
@@ -855,15 +855,15 @@
         }
         
         .video-thumbnail {
-            height: 100px;
+            height: 60px;
         }
         
         .video-info {
-            padding: 10px;
+            padding: 6px;
         }
         
         .video-info h3 {
-            font-size: 1.2rem;
+            font-size: 0.9rem;
         }
         
         footer {
@@ -947,7 +947,7 @@
         }
         
         .video-thumbnail {
-            height: 90px;
+            height: 54px;
         }
     }
 </style>
@@ -1029,7 +1029,7 @@
             </div>
             
             <div class="video-card" onclick="window.open('https://sites.google.com/mpcsd.org/frozenlaurelelementary?usp=sharing', '_blank')">
-                <div class="video-thumbnail" style="background: url('images/IMG_9329.jpeg') center/cover no-repeat;">
+                <div class="video-thumbnail">
                     <span class="year-badge">2025</span>
                 </div>
                 <div class="video-info">
@@ -1038,7 +1038,7 @@
             </div>
             
             <div class="video-card" onclick="window.open('https://sites.google.com/mpcsd.org/mpcsd-lion-king/home', '_blank')">
-                <div class="video-thumbnail" style="background: url('images/IMG_1930.jpeg') center/cover no-repeat;">
+                <div class="video-thumbnail">
                     <span class="year-badge">2025</span>
                 </div>
                 <div class="video-info">
@@ -1066,7 +1066,7 @@
             
             <div class="video-card" onclick="window.open('https://hillview.tv/watch?v=0a4876a1-ed37-11ed-a8b8-066fdbf1761f', '_blank')">
                 <div class="video-thumbnail">
-                    <span class="year-badge">2024</span>
+                    <span class="year-badge">2023</span>
                 </div>
                 <div class="video-info">
                     <h3>Matilda Jr. (Naughty Worms Cast)</h3>
@@ -1075,10 +1075,28 @@
             
             <div class="video-card" onclick="window.open('https://hillview.tv/watch?v=02ca3ea6-ed37-11ed-a8b8-066fdbf1761f', '_blank')">
                 <div class="video-thumbnail">
-                    <span class="year-badge">2024</span>
+                    <span class="year-badge">2023</span>
                 </div>
                 <div class="video-info">
                     <h3>Matilda Jr. (Revolting Maggots Cast)</h3>
+                </div>
+            </div>
+            
+            <div class="video-card" onclick="window.open('https://hillview.tv/watch?v=51aae2f9-d321-11ed-a8b8-066fdbf1761f', '_blank')">
+                <div class="video-thumbnail">
+                    <span class="year-badge">2022</span>
+                </div>
+                <div class="video-info">
+                    <h3>Seussical Jr. (Red Cast)</h3>
+                </div>
+            </div>
+            
+            <div class="video-card" onclick="window.open('https://hillview.tv/watch?v=51aae2d0-d321-11ed-a8b8-066fdbf1761f', '_blank')">
+                <div class="video-thumbnail">
+                    <span class="year-badge">2022</span>
+                </div>
+                <div class="video-info">
+                    <h3>Seussical Jr. (Blue Cast)</h3>
                 </div>
             </div>
         </div>
