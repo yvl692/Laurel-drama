@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 <html lang="en">
@@ -175,10 +176,10 @@
     
     .dropdown-menu a {
         display: block;
-        padding: 15px 20px;
+        padding: 12px 20px;
         color: var(--white);
         text-decoration: none;
-        font-size: 1.1rem;
+        font-size: 0.95rem;
         transition: all 0.3s ease;
         text-transform: none;
         letter-spacing: 0.5px;
@@ -973,8 +974,8 @@
                         <li><a href="https://drive.google.com/drive/folders/1vv-lr8Xxv9hRrHPb9z4xLZ7KdrXb_qbr" target="_blank">Songs</a></li>
                         <li><a href="https://drive.google.com/drive/folders/1LF0OJ0rHju4BybCxg22NNLjdoAEJeeA8" target="_blank">Choreo Vids</a></li>
                         <li><a href="https://www.youtube.com/shorts/TKy6FD_K_3k" target="_blank">Cockney Accent Tips</a></li>
-                        <li><a href="https://docs.google.com/document/d/1brqNT-LlLguoMZMjbNC0gVvBnX9cuZeae5NIn2D5jj0/edit?usp=sharing" target="_blank">Cast List</a></li>
-                        <li><a href="https://docs.google.com/document/d/102bmIm6_8Hpbcbui7VSJCgV7GcoTJD-TI7gV2HKkPdM/edit?usp=sharing" target="_blank">Ensemble Groups</a></li>
+                        <li><a href="#" onclick="checkCastListPassword(event); return false;">Cast List</a></li>
+                        <li><a href="#" onclick="checkEnsemblePassword(event); return false;">Ensemble Groups</a></li>
                         <li><a href="https://docs.google.com/document/u/0/d/1KbyX90trBWovH0Mf0Al0zMHMltQnuHXP/mobilebasic" target="_blank">Oliver Flyer</a></li>
                     </ul>
                 </li>
@@ -1093,26 +1094,66 @@
         return false;
     }
     
+    // Password protection for cast list
+    function checkCastListPassword(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        const password = prompt('Please enter the password to access Cast List:');
+        if (password && password.toLowerCase() === 'breakaleg') {
+            window.open('https://docs.google.com/document/d/1brqNT-LlLguoMZMjbNC0gVvBnX9cuZeae5NIn2D5jj0/edit?usp=sharing', '_blank');
+        } else if (password !== null && password !== '') {
+            alert('Incorrect password. Please try again.');
+        }
+        return false;
+    }
+    
+    // Password protection for ensemble groups
+    function checkEnsemblePassword(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        const password = prompt('Please enter the password to access Ensemble Groups:');
+        if (password && password.toLowerCase() === 'breakaleg') {
+            window.open('https://docs.google.com/document/d/102bmIm6_8Hpbcbui7VSJCgV7GcoTJD-TI7gV2HKkPdM/edit?usp=sharing', '_blank');
+        } else if (password !== null && password !== '') {
+            alert('Incorrect password. Please try again.');
+        }
+        return false;
+    }
+    
     // Add click handlers for dropdown toggles
     document.querySelectorAll('.dropdown-toggle').forEach(button => {
         button.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
             if (window.innerWidth <= 968) {
-                // Mobile behavior
-                e.preventDefault();
-                e.stopPropagation();
+                // Mobile behavior only
                 const dropdown = this.parentElement;
+                const isCurrentlyActive = dropdown.classList.contains('active');
                 
-                // Close other dropdowns
+                // Close all dropdowns first
                 document.querySelectorAll('.dropdown').forEach(d => {
-                    if (d !== dropdown) {
-                        d.classList.remove('active');
-                    }
+                    d.classList.remove('active');
                 });
                 
-                // Toggle this dropdown
-                dropdown.classList.toggle('active');
+                // If this dropdown was NOT active, open it
+                // If it WAS active, leave it closed (toggle effect)
+                if (!isCurrentlyActive) {
+                    dropdown.classList.add('active');
+                }
             }
         });
+    });
+    
+    // Close dropdowns when clicking outside on mobile
+    document.addEventListener('click', function(e) {
+        if (window.innerWidth <= 968) {
+            if (!e.target.closest('.dropdown')) {
+                document.querySelectorAll('.dropdown').forEach(d => {
+                    d.classList.remove('active');
+                });
+            }
+        }
     });
     
     // Close mobile menu when clicking a dropdown link
