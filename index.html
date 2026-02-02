@@ -966,16 +966,24 @@
                         <li><a href="#" onclick="checkFittingPassword(event); return false;">Fitting Day Sign Up</a></li>
                         <li><a href="https://drive.google.com/file/d/1BJr3YMaK-JHOzLAaowSoSle22cqWgU5G/view?usp=drivesdk" target="_blank">Script</a></li>
                         <li><a href="https://drive.google.com/drive/folders/1vv-lr8Xxv9hRrHPb9z4xLZ7KdrXb_qbr" target="_blank">Songs</a></li>
+                        <li><a href="https://drive.google.com/drive/folders/1LF0OJ0rHju4BybCxg22NNLjdoAEJeeA8" target="_blank">Choreo Vids</a></li>
+                        <li><a href="https://www.youtube.com/shorts/TKy6FD_K_3k" target="_blank">Cockney Accent Tips</a></li>
                         <li><a href="https://docs.google.com/document/d/1brqNT-LlLguoMZMjbNC0gVvBnX9cuZeae5NIn2D5jj0/edit?usp=sharing" target="_blank">Cast List</a></li>
                         <li><a href="https://docs.google.com/document/d/102bmIm6_8Hpbcbui7VSJCgV7GcoTJD-TI7gV2HKkPdM/edit?usp=sharing" target="_blank">Ensemble Groups</a></li>
                         <li><a href="https://docs.google.com/document/u/0/d/1KbyX90trBWovH0Mf0Al0zMHMltQnuHXP/mobilebasic" target="_blank">Oliver Flyer</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <button class="dropdown-toggle">Lion King Kids 2026</button>
+                    <button class="dropdown-toggle">Lion King Kids</button>
                     <ul class="dropdown-menu" id="lionking-menu">
                         <li><a href="https://drive.google.com/file/d/1qsOyjkp8_biI757m3vsX2MUGXDYiktwh/view?usp=drivesdk" target="_blank">Script</a></li>
                         <li><a href="https://drive.google.com/drive/folders/1UaKRk0KsO6_YhZfj1Pjs6iIEmwY4LuVi" target="_blank">Songs</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <button class="dropdown-toggle">Summer Drama</button>
+                    <ul class="dropdown-menu" id="summer-menu">
+                        <li><a href="https://email-link.parentsquare.com/ls/click?upn=u001.fXnyRoRrYp-2BOes1zT5H-2F4nGEt7KpwncNNlWdUwWF55-2Fi-2Fr8P31Cle6tYxgwrk9G73DnLcKMnpJ9DGzrEcqUaekgRC9726dJ7JN4q9UU8qbwy4WoJWjZFpR2bsU0nP4vQe6Vjz8EbpxHz-2FZqBJ2v0rhL8NfHXbtdFYKJ774-2FikU1W2i0IuQON8vgVkqgmxJC-2BQKUXWVOt-2BvngK4pnTrG4Fg-3D-3DIoRh_kpQWSJluBaVe8eCTuJuHQLCKmRzdJzQ7-2BxVHOnWhEf7ncLwCmhFLveB-2FtYgJ-2B4-2BqD2GGHgWXqNM6aL-2Fb3IuiL1cHFjC-2BQ7IBasFvzIJmZHmtjomMUr0Jbr1XwGacLpKxWyLV5VhfAljK1d8iqKgml0k12FFQ9W8yStL38E64LoXvTpqNXvEJ5qIjlcUfwCB8RviLEuoCp2qq-2BaygRNYb6FwkBHk5kyCyU8knyjwJWK-2BwDmEOMPOzLei4nUKa5Dkj" target="_blank">Program Information</a></li>
                     </ul>
                 </li>
             </ul>
@@ -998,17 +1006,6 @@
                 <p class="show-meta" style="font-style: normal; font-weight: 600; margin-top: 15px;">Rachel Bergeron, Director</p>
                 <p class="show-description">Follow young Oliver Twist's extraordinary journey from the workhouse to the streets of Victorian London in this beloved musical adaptation of Charles Dickens' classic tale. Filled with unforgettable songs like "Consider Yourself" and "As Long As He Needs Me," our production brings heart, humor, and hope to the stage.</p>
                 <span class="tickets-text">Tickets Coming Soon</span>
-            </div>
-        </div>
-        
-        <div class="show-highlight" style="margin-top: 40px;">
-            <div class="show-info">
-                <h3>Lion King Kids 2026</h3>
-                <p class="show-meta">January 31, 2026 | Hillview PAC</p>
-                <p class="show-meta">2:00 PM and 4:00 PM</p>
-                <p class="show-meta"><a href="https://docs.google.com/document/d/1UTkG5o-h8Tg63vYImPqNS_r9pUTI3yZX7kQHeFDIQ3w/edit?usp=drivesdk" target="_blank" style="color: var(--bright-blue); text-decoration: underline;">View Cast List</a></p>
-                <p class="show-meta" style="font-style: normal; font-weight: 600; margin-top: 15px;">Rachel Bergeron, Director</p>
-                <p class="show-description">Experience the majesty of the African savanna as Laurel School's third grade performs Lion King Kids in this spectacular production. Third grade families and friends are invited to attend. The show will run approximately 45 minutes with no intermission.</p>
             </div>
         </div>
     </section>
@@ -1067,10 +1064,8 @@
     
     // Password protection for volunteer sign up
     function checkVolunteerPassword(event) {
-        if (event) {
-            event.preventDefault();
-            event.stopPropagation();
-        }
+        event.preventDefault();
+        event.stopPropagation();
         const password = prompt('Please enter the password to access Volunteer Sign Up:');
         if (password && password.toLowerCase() === 'breakaleg') {
             window.open('https://docs.google.com/spreadsheets/u/0/d/18KqMLvN7M7-mnrNDzW-kf8OX90GeIR8dQjH7nt5idKI/htmlview', '_blank');
@@ -1082,10 +1077,8 @@
     
     // Password protection for fitting day sign up
     function checkFittingPassword(event) {
-        if (event) {
-            event.preventDefault();
-            event.stopPropagation();
-        }
+        event.preventDefault();
+        event.stopPropagation();
         const password = prompt('Please enter the password to access Fitting Day Sign Up:');
         if (password && password.toLowerCase() === 'breakaleg') {
             window.open('https://docs.google.com/spreadsheets/d/181oJGGjChgcDYVhd9TptpVTFTW6XOR7xkJcpQIFw7L4/edit?usp=drivesdk', '_blank');
