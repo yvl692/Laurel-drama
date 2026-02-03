@@ -619,8 +619,8 @@
         transform: scale(1.2);
     }
     
-    /* Make Lion King Kids 2026 card half width on desktop */
-    .video-grid .video-card:first-child {
+    /* Make Lion King Kids 2026 card half width on desktop - target only 2026 section */
+    .year-heading:first-of-type + .video-grid .video-card {
         max-width: 50%;
     }
     
@@ -868,7 +868,7 @@
         }
         
         /* Reset Lion King 2026 card width on mobile */
-        .video-grid .video-card:first-child {
+        .year-heading:first-of-type + .video-grid .video-card {
             max-width: 100%;
         }
         
