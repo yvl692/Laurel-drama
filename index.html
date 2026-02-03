@@ -619,6 +619,11 @@
         transform: scale(1.2);
     }
     
+    /* Make Lion King Kids 2026 card half width on desktop */
+    .video-grid .video-card:first-child {
+        max-width: 50%;
+    }
+    
     .video-thumbnail .year-badge {
         position: absolute;
         top: 5px;
@@ -860,6 +865,11 @@
         .video-grid {
             grid-template-columns: 1fr;
             gap: 20px;
+        }
+        
+        /* Reset Lion King 2026 card width on mobile */
+        .video-grid .video-card:first-child {
+            max-width: 100%;
         }
         
         .video-card {
